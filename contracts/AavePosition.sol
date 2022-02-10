@@ -33,7 +33,7 @@ contract AavePosition {
 
     address constant LP_CONTR_ADDR = 0x9198F13B08E299d85E096929fA9781A1E3d5d827;
     address constant PD_CONTR_ADDR = 0xFA3bD19110d986c5e5E9DD5F69362d05035D045B;
-    address constant LPAP_CONTR_ADDR =0x178113104fEcbcD7fF8669a0150721e231F0FD4B;
+    address constant LPAP_CONTR_ADDR = 0x178113104fEcbcD7fF8669a0150721e231F0FD4B;
 
     function getSymbol(address addr)
         internal
