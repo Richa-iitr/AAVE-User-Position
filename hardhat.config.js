@@ -23,8 +23,8 @@ module.exports = {
     hardhat: {
     },
     matic: {
-      url: "https://polygon-mumbai.g.alchemy.com/v2/6OXarysKYq0scJx1uP8RPXxW43Q_eMRj",
-      accounts: ["0x4bf8b687733a18539cc8ed0cb0b59853fd11f1730899f14e9c03dad05098994e"]
+      url: PolygonMatic,
+      accounts: [privateKey]
     }
   },
   solidity: {
