@@ -10,21 +10,15 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
     console.log(account.address);
   }
 });
-
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
+const { API_URL, PRIVATE_KEY } = process.env;
 module.exports = {
   defaultNetwork: "matic",
   networks: {
     hardhat: {
     },
     matic: {
-      url: PolygonMatic,
-      accounts: [privateKey]
+      url: API_URL,
+      accounts: [`0x${PRIVATE_KEY}`]
     }
   },
   solidity: {
