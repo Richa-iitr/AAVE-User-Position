@@ -63,7 +63,7 @@ contract AavePosition {
         )
     {
         uint256 varRate;
-        (, , , supRate, varRate, , , , , ) = IProtocolDataProvider(
+        (, , ,supRate,varRate, , , , , ) = IProtocolDataProvider(
             PD_CONTR_ADDR
         ).getReserveData(addr);
         uint256 stabBor;
@@ -90,7 +90,7 @@ contract AavePosition {
             uint256 currentLiquidationThreshold,
             uint256 ltv,
             uint256 healthFactor,
-            assetData[] memory data
+            assetData[] memory tokenDatas
         )
     {
         (
@@ -106,14 +106,14 @@ contract AavePosition {
             .getPriceOracle();
 
         for (uint256 i = 0; i < tokenAddresses.length; i++) {
-            data[i].asset = tokenAddresses[i];
-            data[i].symbol = getSymbol(tokenAddresses[i]);
+            tokenDatas[i].asset = tokenAddresses[i];
+            tokenDatas[i].symbol = getSymbol(tokenAddresses[i]);
             (
-                data[i].decimal,
-                data[i].LTV,
-                data[i].liquidationThreshold,
+                tokenDatas[i].decimal,
+                tokenDatas[i].LTV,
+                tokenDatas[i].liquidationThreshold,
                 ,
-                data[i].reserveFactor,
+                tokenDatas[i].reserveFactor,
                 ,
                 ,
                 ,
@@ -123,18 +123,18 @@ contract AavePosition {
                 .getReserveConfigurationData(tokenAddresses[i]);
 
             (
-                data[i].supplyRate,
-                data[i].totalSupply,
-                data[i].borrowRate,
-                data[i].totalBorrow
+                tokenDatas[i].supplyRate,
+                tokenDatas[i].totalSupply,
+                tokenDatas[i].borrowRate,
+                tokenDatas[i].totalBorrow
             ) = getResData(tokenAddresses[i], owner);
 
-            data[i].maxBorrowLimit = (data[i].totalSupply).mul(data[i].LTV);
-            data[i].maxLiquidationBorrowLimit = (data[i].totalSupply).mul(
-                data[i].liquidationThreshold
+            tokenDatas[i].maxBorrowLimit = (tokenDatas[i].totalSupply).mul(tokenDatas[i].LTV);
+            tokenDatas[i].maxLiquidationBorrowLimit = (tokenDatas[i].totalSupply).mul(
+                tokenDatas[i].liquidationThreshold
             );
-            data[i].price = IPriceOracle(PRICEORACLE_ADDR).getAssetPrice(
-                data[i].asset
+            tokenDatas[i].price = IPriceOracle(PRICEORACLE_ADDR).getAssetPrice(
+                tokenAddresses[i]
             );
         }
     }
