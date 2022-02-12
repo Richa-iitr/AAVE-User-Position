@@ -2,9 +2,8 @@
 const hre = require("hardhat");
 
 async function main() {
-  const AAVE = await hre.ethers.getContractFactory("AavePosition");
+  const AAVE = await hre.ethers.getContractFactory("AavePositions");  
   const aave = await AAVE.deploy();
-
   await aave.deployed();
 
   console.log("AAVE deployed to:", aave.address);
@@ -18,9 +17,36 @@ async function main() {
       '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
       '0x341d1f30e77D3FBfbD43D17183E2acb9dF25574E'
     ];
-    
+
     var result = await aave.getAaveV2Position(user.toLowerCase(), tokenAddresses);
-    console.log(result);
+    var res = [];
+    res.push({totalSupplyInETH: (result.totalCollateralETH)/1e18,
+              totalBorrowsInETH: (result.totalBorrows/1e18),
+              availableBorrowsInETH: (result.availableBorrowsETH/1e18),
+              liquidationThreshold: (result.currentLiquidationThreshold/10000),
+              ltv: result.ltv/10000,
+              healthFactor: (result.healthFactor/1e18) 
+            });
+    for(var i=0; i<result.data.length; i++){
+      var factor = (result.data[i].decimal/1)  + 4;
+      res.push({
+        asset: (result.data[i].asset),
+        symbol: (result.data[i].symbol),
+        borrowRate: result.data[i].borrowRate/1e27,
+        supplyRate: result.data[i].supplyRate/1e27,
+        ltv: result.data[i].ltv/10000,
+        decimal: result.data[i].decimal/1,
+        liquidationThreshold: result.data[i].liquidationThreshold/10000,
+        reserveFactor: result.data[i].reserveFactor/1,
+        priceInETH: result.data[i].price/1e18,
+        totalSupply: result.data[i].totalSupply/(10 ** result.data[i].decimal),
+        totalBorrow: result.data[i].totalBorrow/(10 ** result.data[i].decimal),
+        maxBorrowLimit: result.data[i].maxBorrowLimit/(10 ** (factor)),
+        maxLiquidationBorrowLimit: result.data[i].maxLiquidationBorrowLimit/(10 ** (factor))
+      });
+    }
+    
+    console.log(res);
 };
 main()
   .then(() => process.exit(0))

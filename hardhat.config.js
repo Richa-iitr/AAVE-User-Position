@@ -1,7 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
-require('dotenv').config();
-const { API_URL, PRIVATE_KEY } = process.env;
+// require('dotenv').config();
+// const { API_URL, PRIVATE_KEY,KEY } = process.env;
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
@@ -14,13 +14,17 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 const { API_URL, PRIVATE_KEY } = process.env;
 
 module.exports = {
-  defaultNetwork: "matic",
+  // defaultNetwork: "matic",
   networks: {
     hardhat: {
+      forking: {
+        url: `https://eth-mainnet.alchemyapi.io/v2/${KEY}`,
+        blockNumber: 11095000
+      }
     },
     matic: {
-      url: API_URL,
 
+      url: API_URL,
       accounts: [`0x${PRIVATE_KEY}`],
       gas: 2100000,
       gasPrice: 8000000000,
@@ -33,7 +37,7 @@ module.exports = {
         version: "0.8.4",
       },
       {
-        version: "0.8.11",
+        version: "0.6.12",
         settings: {},
       },
     ],
