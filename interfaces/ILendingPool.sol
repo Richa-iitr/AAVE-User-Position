@@ -1,6 +1,5 @@
-// SPDX-License-Identifier: agpl-3.0
-pragma solidity 0.8.11;
-pragma experimental ABIEncoderV2;
+// // SPDX-License-Identifier: agpl-3.0
+pragma solidity 0.6.12;
 
 import {DataTypes} from '../type/DataTypes.sol';
 
@@ -17,7 +16,5 @@ interface ILendingPool {
       uint256 ltv,
       uint256 healthFactor
     );
-  
-  function getReservesList() external view returns (address[] memory);
-
 }
+

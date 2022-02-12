@@ -3,7 +3,8 @@ node_modules
 coverage
 coverage.json
 typechain
-scripts/AavePosition.js
+AavePosition.js
+AavePosition.sol
 #Hardhat files
 cache
 artifacts
