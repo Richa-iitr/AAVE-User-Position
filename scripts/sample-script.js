@@ -25,10 +25,11 @@ async function main() {
               availableBorrowsInETH: (result.availableBorrowsETH/1e18),
               liquidationThreshold: (result.currentLiquidationThreshold/10000),
               ltv: result.ltv/10000,
-              healthFactor: (result.healthFactor/1e18) 
+              healthFactor: (result.healthFactor/1e18),
+              maxBorrowLimitInETH: (result.maxBorrowLimit/1e22),
+              maxLiquidationBorrowLimitInETH: (result.maxLiquidationBorrowLimit/1e22)
             });
     for(var i=0; i<result.data.length; i++){
-      var factor = (result.data[i].decimal/1)  + 4;
       res.push({
         asset: (result.data[i].asset),
         symbol: (result.data[i].symbol),
@@ -41,8 +42,6 @@ async function main() {
         priceInETH: result.data[i].price/1e18,
         totalSupply: result.data[i].totalSupply/(10 ** result.data[i].decimal),
         totalBorrow: result.data[i].totalBorrow/(10 ** result.data[i].decimal),
-        maxBorrowLimit: result.data[i].maxBorrowLimit/(10 ** (factor)),
-        maxLiquidationBorrowLimit: result.data[i].maxLiquidationBorrowLimit/(10 ** (factor))
       });
     }
     
