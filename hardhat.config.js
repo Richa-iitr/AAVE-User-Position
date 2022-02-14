@@ -1,7 +1,9 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
 // require('dotenv').config();
+
 const { API_URL, PRIVATE_KEY, KEY } = process.env;
+
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
@@ -10,6 +12,9 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
     console.log(account.address);
   }
 });
+
+const { API_URL, PRIVATE_KEY } = process.env;
+
 module.exports = {
   // defaultNetwork: "matic",
   networks: {
@@ -24,6 +29,7 @@ module.exports = {
       accounts: [`0x${PRIVATE_KEY}`],
       gas: 2100000,
       gasPrice: 8000000000,
+
     }
   },
   solidity: {

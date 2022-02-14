@@ -13,3 +13,8 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+# AAVE User Postion Details
+
+![alt text](https://github.com/Richa-iitr/AAVESmartContract/blob/master/Result1.png?raw=true)
+
+![alt text](https://github.com/Richa-iitr/AAVESmartContract/blob/master/Result2.png?raw=true)
