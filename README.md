@@ -15,6 +15,6 @@ npx hardhat help
 ```
 # AAVE User Postion Details
 
-![alt text](https://github.com/Richa-iitr/AAVESmartContract/blob/master/Result1.png?raw=true)
+![alt text](https://github.com/Richa-iitr/AAVESmartContract/blob/master/img/Output1.png?raw=true)
 
-![alt text](https://github.com/Richa-iitr/AAVESmartContract/blob/master/Result2.png?raw=true)
+![alt text](https://github.com/Richa-iitr/AAVESmartContract/blob/master/img/Output2.png?raw=true)
