@@ -25,8 +25,6 @@ contract AavePositions{
         uint256 price;
         uint256 totalSupply;
         uint256 totalBorrow;
-        uint256 maxBorrowLimit;
-        uint256 maxLiquidationBorrowLimit;
     }
 
     /*
@@ -108,10 +106,14 @@ contract AavePositions{
         uint256 currentLiquidationThreshold,
         uint256 ltv,
         uint256 healthFactor,
+        uint256 maxBorrowLimit,
+        uint256 maxLiquidationBorrowLimit,
         assetData[] memory data) {
 
             address DATAPROVIDER_ADDR = 0xFA3bD19110d986c5e5E9DD5F69362d05035D045B;
             (totalCollateralETH,totalBorrows,availableBorrowsETH,currentLiquidationThreshold,ltv,healthFactor) = userData(owner);
+            maxBorrowLimit = (totalCollateralETH).mul(ltv);
+            maxLiquidationBorrowLimit = (totalCollateralETH).mul(currentLiquidationThreshold);
             data = new assetData[](tokenAddresses.length);
 
             for(uint256 i=0; i < tokenAddresses.length; i++) {
@@ -120,11 +122,9 @@ contract AavePositions{
                 asset.symbol = getSymbol(tokenAddresses[i]);
                 (asset.decimal,asset.ltv,asset.liquidationThreshold,,asset.reserveFactor,,,,,) = IProtocolDataProvider(DATAPROVIDER_ADDR).getReserveConfigurationData(tokenAddresses[i]);
                 (asset.supplyRate,asset.borrowRate,asset.totalSupply,asset.totalBorrow) = getOwnerReserveData(owner, tokenAddresses[i]);
-                asset.maxBorrowLimit = (asset.totalSupply).mul(asset.ltv);
-                asset.maxLiquidationBorrowLimit = (asset.totalSupply).mul(asset.liquidationThreshold);
                 asset.price = getPrice(tokenAddresses[i]);
                 data[i] = asset;
             }
-            return (totalCollateralETH, totalBorrows, availableBorrowsETH, currentLiquidationThreshold, ltv, healthFactor, data);            
+            return (totalCollateralETH, totalBorrows, availableBorrowsETH, currentLiquidationThreshold, ltv, healthFactor, maxBorrowLimit, maxLiquidationBorrowLimit, data);            
     }
 }
